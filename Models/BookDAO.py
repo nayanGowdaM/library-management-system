@@ -103,3 +103,13 @@ class BookDAO():
 		desc = book_info['desc']
 		q = self.db.query("UPDATE @table SET name = '{}',count='{}', availability='{}', @table.desc='{}' WHERE id={}".format(title,qty, available, desc,  id))
 		self.db.commit()
+  
+	def add_book( self, book_info):
+		name = book_info['name']
+		author  = book_info['author']
+		edition = book_info['edition']
+		count = book_info['count']
+		availability = book_info['availabilityv']
+		desc = book_info['desc']
+		q = self.db.query("INSERT INTO @table (name,author, edition,count, availability, @table.desc) VALUES('{}', '{}', '{}','{}', '{}', '{}');".format(name, author, edition, count, availability, desc))
+		self.db.commit()

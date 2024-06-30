@@ -122,7 +122,32 @@ def view_book(id):
 def book_add():
 	admin_manager.admin.set_session(session, g)
 	
-	return render_template('admin/books/add.html', g=g)
+	if request.method == 'POST':
+		name = request.form.get('name')
+		author = request.form.get('author')
+		edition = request.form.get('edition')
+		count = request.form.get('count')
+		availability = int('availability' in request.form)
+		desc = request.form.get('desc')
+
+		# Ensure all required fields are filled
+		if not name or not author or not edition or not count or not desc:
+			flash('Please fill out all required fields', 'danger')
+			return redirect(url_for('admin_routes.book_add'))
+
+		book_info = {
+			'name': name,
+			'author': author,
+			'edition': edition,
+			'count': count,
+			'availabilityv': availability,
+			'desc': desc
+		}
+
+		book_manager.addBook(book_info)
+		return redirect(url_for('admin_routes.books'))
+
+	return render_template("admin/books/add.html", g=g)
 
 
 
