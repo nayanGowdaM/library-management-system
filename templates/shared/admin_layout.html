@@ -1,6 +1,7 @@
 <html>
 <!-- What the page is called in the tab bar  -->
 <!-- We will add out stylsheet here later -->
+  <!-- admin_Layout.html -->
 <head>
 	{%block head %}
 	<meta charset="utf-8">
@@ -23,26 +24,33 @@
 	<div class="container-fluid">
 		<div class="navbar justify-content-end">
 			<ul class="nav">
-			  {% if g and g.user %}
+			  {% if g and g.user%}
 				  <li class="nav-item">
-				    <a class="nav-link active" href="/admin/">Home</a>
+				    <a class="nav-link active" href={{url_for('admin_routes.home')}}>Home</a>
 				  </li>
 				  <li class="nav-item dropdown">
 				    <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">Manage Books</a>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-					  <a class="dropdown-item" href="/admin/books"><i class="bi bi-view-list"></i> View Books</a>
-					  <a class="dropdown-item" href="/admin/books/add"><i class="bi bi-journal-plus"></i> Add Book</a>
+					  <a class="dropdown-item" href={{url_for('admin_routes.books')}}><i class="bi bi-view-list"></i> View Books</a>
+					  <a class="dropdown-item" href={{url_for('admin_routes.book_add')}}><i class="bi bi-journal-plus"></i> Add Book</a>
 					</div>
 				  </li>
 				  <li class="nav-item">
-				    <a class="nav-link" href="/admin/users/view/">Manage Users</a>
+				    <a class="nav-link" href={{url_for('admin_routes.users_view')}}>Manage Users</a>
 				  </li>
 				  <li class="nav-item">
-				    <a class="nav-link active" href="/admin/signout">Sign out</a>
+				    <a class="nav-link active" href={{url_for('admin_routes.signout')}}>Sign out</a>
 				  </li>
 				  <!-- <li class="nav-item">
 				    <a class="nav-link" href="/user/">Profile</a>
 				  </li> -->
+				  {% else %}
+				  <li class="nav-item">
+				    <a class="nav-link" href={{url_for('admin_routes.signin')}}>Signin</a>
+				  </li>
+				  <li class="nav-item">
+				    <a class="nav-link" href={{url_for('admin_routes.signup')}}>Signup</a>
+				  </li>
 			  {% endif %}
 			</ul>
 		</div>

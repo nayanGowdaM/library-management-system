@@ -23,8 +23,8 @@ app.jinja_env.globals.update(
 
 # connects the blueprint with the main application
 app.register_blueprint(user_view,  url_prefix='/users/')
-app.register_blueprint(book_view,  url_prefix='/books')
-app.register_blueprint(admin_view,  url_prefix='/admin')
+app.register_blueprint(book_view,  url_prefix='/books/')
+app.register_blueprint(admin_view,  url_prefix='/admin/')
 
 
 

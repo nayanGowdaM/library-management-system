@@ -19,7 +19,20 @@ class AdminManager():
 
 		return admin # Return the admin record if the email and password match
 		
-  
+	def signup(self, email, password):
+		user = self.dao.getByEmail(email)
+
+		if user is not None:
+			return "already_exists"
+
+		user_info = {
+			"email": email,
+			"password": password,
+		}
+		
+		new_user = self.dao.add(user_info)
+
+		return new_user
 #    Method to retrieve an admin record by ID
 	def get(self, id):
 		admin = self.dao.getById(id)

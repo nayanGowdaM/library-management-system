@@ -51,24 +51,24 @@ def signin():
 @user_view.route('/signup', methods=['GET', 'POST'])
 @user_manager.user.redirect_if_login
 def signup():
-	if request.method == 'POST':
-		name = request.form.get('name')
-		email = request.form.get('email')
-		password = request.form.get('password')
+    if request.method == 'POST':
+        name = request.form.get('name')
+        email = request.form.get('email')
+        password = request.form.get('password')
+        bio = request.form.get('bio')
+        mobile = request.form.get('mobile')
 
-		if len(name) < 1 or len(email)<1 or len(password)<1:
-			return render_template('signup.html', error="All fields are required")
+        if len(name) < 1 or len(email) < 1 or len(password) < 1 or len(bio) < 1 or len(mobile) < 1:
+            return render_template('signup.html', error="All fields are required")
 
-		new_user = user_manager.signup(name, email, hash(password))
+        new_user = user_manager.signup(name, email, hash(password), bio, mobile)
 
-		if new_user == "already_exists":
-			return render_template('signup.html', error="User already exists with this email")
+        if new_user == "already_exists":
+            return render_template('signup.html', error="User already exists with this email")
 
+        return render_template('signup.html', msg="You've been registered!")
 
-		return render_template('signup.html', msg = "You've been registered!")
-
-
-	return render_template('signup.html')
+    return render_template('signin.html')
 
 
 @user_view.route('/signout/', methods=['GET'])

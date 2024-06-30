@@ -35,13 +35,20 @@ class UserManager():
 		return user
 
 # Returns new User details if not register else return "already exits"
-	def signup(self, name, email, password):
+	def signup(self, name, email, password, bio,mobile):
 		user = self.dao.getByEmail(email)
 
 		if user is not None:
 			return "already_exists"
 
-		user_info = {"name": name, "email": email, "password": password}
+		user_info = {
+			"name": name,
+			"email": email,
+			"password": password,
+			"bio": bio,
+			"mobile": mobile,
+			"lock": 0
+		}
 		
 		new_user = self.dao.add(user_info)
 

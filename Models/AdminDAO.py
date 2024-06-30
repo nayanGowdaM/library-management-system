@@ -18,3 +18,13 @@ class AdminDAO():
 		user = q.fetchone()
 
 		return user
+
+	def add(self, user):
+		email = user['email']
+		password = user['password']
+
+
+		q = self.db.query("INSERT INTO @table (email, password) VALUES('{}', '{}');".format(email, password))
+		self.db.commit()
+		
+		return q

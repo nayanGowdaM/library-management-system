@@ -1,6 +1,7 @@
 <html>
 <!-- What the page is called in the tab bar  -->
 <!-- We will add out stylsheet here later -->
+ <!-- Layout.html -->
 <head>
 	{%block head %}
 	<meta charset="utf-8">
@@ -41,6 +42,9 @@
 				  </li>
 				  <li class="nav-item">
 				    <a class="nav-link" href={{url_for('user_routes.signup')}}>Signup</a>
+				  </li>
+				  <li class="nav-item">
+				    <a class="nav-link" href={{url_for('admin_routes.home')}}>Admin</a>
 				  </li>
 			  {% endif %}
 			</ul>
