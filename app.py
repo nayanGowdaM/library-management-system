@@ -1,4 +1,4 @@
-from flask import Flask, g, escape, session, redirect, render_template, request, jsonify, Response
+from flask import Flask, g, escape, session, redirect, render_template, request, jsonify, Response, url_for
 from Misc.functions import *
 
 app = Flask(__name__)
@@ -20,7 +20,16 @@ app.jinja_env.globals.update(
     str=str,
 )
 
+
 # connects the blueprint with the main application
-app.register_blueprint(user_view)
-app.register_blueprint(book_view)
-app.register_blueprint(admin_view)
+app.register_blueprint(user_view,  url_prefix='/users/')
+app.register_blueprint(book_view,  url_prefix='/books')
+app.register_blueprint(admin_view,  url_prefix='/admin')
+
+
+
+@app.route('/', methods=['GET'])
+def home():
+
+
+	return redirect( url_for('user_routes.home'))

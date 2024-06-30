@@ -1,4 +1,4 @@
-from flask import Blueprint, g, escape, session, redirect, render_template, request, jsonify, Response, flash
+from flask import Blueprint, g, escape, session, redirect, render_template, request, jsonify, Response, flash,url_for
 from app import DAO  # Data object model that has been initialized with the app 
 from Misc.functions import *
 
@@ -91,7 +91,7 @@ def show_user(id=None):
 
 	return render_template("profile.html", user=d, books=mybooks, g=g)
 
-@user_view.route('/user', methods=['POST'])
+@user_view.route('/user/', methods=['POST'])
 @user_manager.user.login_required
 def update():
 	user_manager.user.set_session(session, g)
@@ -105,4 +105,4 @@ def update():
 	user_manager.update(name, email, hash(password), bio, user_manager.user.uid())
 
 	flash('Your info has been updated!')
-	return redirect("/user/")
+	return redirect(url_for('user_routes.show_user'))

@@ -9,8 +9,10 @@ book_view = Blueprint('book_routes', __name__, template_folder='/templates')
 book_manager = BookManager(DAO)
 user_manager = UserManager(DAO)
 
-@book_view.route('/books/', defaults={'id': None})
-@book_view.route('/books/<int:id>')
+
+
+@book_view.route('/', defaults={'id': None})
+@book_view.route('/<int:id>')
 def home(id):
 	user_manager.user.set_session(session, g)
 
@@ -50,7 +52,7 @@ def home(id):
 	return render_template("books.html", books=b, g=g)
 
 
-@book_view.route('/books/add/<id>', methods=['GET'])
+@book_view.route('/add/<id>', methods=['GET'])
 @user_manager.user.login_required
 def add(id):
 	user_id = user_manager.user.uid()
@@ -62,7 +64,7 @@ def add(id):
 	return render_template("books.html", msg="Book reserved", books=b, g=g)
 
 
-@book_view.route('/books/search', methods=['GET'])
+@book_view.route('/search', methods=['GET'])
 def search():
 	user_manager.user.set_session(session, g)
 

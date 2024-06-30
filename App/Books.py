@@ -10,3 +10,4 @@ class Books(): # Data structure for book info
 
 	def __init__(self, BookDAO):
 		self.dao = BookDAO
+		self.route_url = "/books/"

@@ -19,7 +19,7 @@
 						{{error}}
 					</div>
 				{% endif %}
-				<form action="/signin" method="POST">
+				<form action="{{url_for('user_routes.signin')}}" method="POST">
 					<div class="form-group">
 						<label for="exampleInputEmail1">Email address</label>
 						<input type="email" class="form-control" name="email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">

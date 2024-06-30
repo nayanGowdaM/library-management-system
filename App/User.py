@@ -10,3 +10,4 @@ class User(Actor):
 	def __init__(self, UserDAO):
 		self.dao = UserDAO
 		self.sess_key = "user" # session key
+		self.route_url = "/users/"
