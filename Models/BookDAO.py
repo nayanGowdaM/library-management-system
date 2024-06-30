@@ -93,3 +93,13 @@ class BookDAO():
 		books = q.fetchall()
 		
 		return books
+
+
+	def update_book( self, book_info):
+		id = book_info['id']
+		title = book_info['title']
+		qty = book_info['qty']
+		available = book_info['available']
+		desc = book_info['desc']
+		q = self.db.query("UPDATE @table SET name = '{}',count='{}', availability='{}', @table.desc='{}' WHERE id={}".format(title,qty, available, desc,  id))
+		self.db.commit()

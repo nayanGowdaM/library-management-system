@@ -55,3 +55,17 @@ class BookManager():
 # deletes a book by its ID.
 	def delete(self, id):
 		self.dao.delete(id)
+  
+  
+	def updateBook(self, id, title, qty, available, description):
+
+
+		book_info = {
+			"id": id,
+			"title": title,
+			"qty": qty,
+			"available": available,
+			"desc": description,
+		}
+		
+		self.dao.update_book(book_info)

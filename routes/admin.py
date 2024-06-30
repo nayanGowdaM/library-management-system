@@ -1,4 +1,4 @@
-from flask import Blueprint, g, escape, session, redirect, render_template, request, jsonify, Response, url_for
+from flask import Blueprint, g, escape, session, redirect, render_template, request, flash ,  jsonify, Response, url_for
 from app import DAO
 from Misc.functions import *
 
@@ -84,7 +84,7 @@ def users_view():
 	admin = admin_manager.get(id)
 	myusers = admin_manager.getUsersList()
 
-	return render_template('users.html', g=g, admin=admin, users=myusers)
+	return render_template('admin/users.html', g=g, admin=admin, users=myusers)
 
 
 
@@ -125,20 +125,7 @@ def book_add():
 	return render_template('admin/books/add.html', g=g)
 
 
-@admin_view.route('/books/edit/<int:id>', methods=['GET', 'POST'])
-@admin_manager.admin.login_required
-def book_edit(id):
-	admin_manager.admin.set_session(session, g)
 
-	if id != None:
-		b = book_manager.getBook(id)
-
-		if b and len(b) <1:
-			return render_template('edit.html', error="No book found!")
-
-		return render_template("admin/books/edit.html", book=b, g=g)
-	
-	return redirect('/books')
 
 @admin_view.route('/books/delete/<int:id>', methods=['GET'])
 @admin_manager.admin.login_required
@@ -173,3 +160,38 @@ def search():
 
 	return render_template('admin/books/views.html', error="No books found!", keyword=escape(keyword))
 
+
+
+@admin_view.route('/books/edit/<int:id>', methods=['GET', 'POST'])
+@admin_manager.admin.login_required
+def book_edit(id):
+    admin_manager.admin.set_session(session, g)
+    
+    # Handle POST request for form submission
+    if request.method == 'POST':
+        title = request.form.get('title')
+        qty = request.form.get('qty')
+        available = int('available' in request.form)
+        description = request.form.get('desc')
+
+        # Ensure all required fields are filled
+        if not title or not qty:
+            flash('Please fill out all required fields', 'danger')
+            return redirect(url_for('admin_routes.book_edit', id=id))
+        
+        
+        book_manager.updateBook( id, title, qty, available, description)
+        return redirect(url_for('admin_routes.books'))
+
+		
+    
+    # Handle GET request to display edit form
+    if id is not None:
+        b = book_manager.getBook(id)
+
+        if b is None or len(b) < 1:
+            return render_template('admin/books/edit.html', error="No book found!")
+
+        return render_template("admin/books/edit.html", book=b, g=g)
+    
+    return redirect('admin/books')
