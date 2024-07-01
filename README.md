@@ -1,7 +1,7 @@
 # Library Management System
 A simple flask app to manage users along with mysql service
 
-![Libray Management App - Flask](https://github.com/hamzaavvan/library-management-system/blob/master/ss/ss2.JPG?raw=true)
+![Libray Management App - Flask](ss/ss2.JPG)
 
 
 ## Installation
@@ -11,18 +11,17 @@ To run the app flawlessly, satisfy the requirements
 $ pip install -r requirements.txt
 ```
 
-## Set Environment Variables
-```bash
-$ export FLASK_APP=app.py
-$ export FLASk_ENV=development
-```
-
-## Start Server
-```bash
-$ flask run
-```
-
-Or run this command 
+run this command to start the server
 ```bash
 $ python -m flask run
+```
+
+or run this command to start the server
+```bash
+$ flask -app app run
+```
+
+run this command to start the server in debug mode
+```bash
+$ flask -app app --debug run
 ```
